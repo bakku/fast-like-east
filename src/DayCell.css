@@ -1,0 +1,17 @@
+.calendar-body-day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(62, 72, 74);
+}
+
+.calendar-body-day-previous-month {
+    color: #A3A3A3;
+}
+
+.calendar-body-day-strict-fast {
+    color: #FBFBFB;
+    background-color: #FFC1C1;
+    border-radius: 100%;
+    margin: 10%;
+}

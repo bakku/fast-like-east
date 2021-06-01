@@ -23,7 +23,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    color: #A3A3A3;
+    color: rgb(62, 72, 74);
 }
 
 .calendar-body-wrapper {
@@ -46,13 +46,9 @@
     grid-column: 1 / 1;
 }
 
-.calendar-cell {
+.calendar-header-day {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #A3A3A3;
-}
-
-.calendar-body-day-previous-month {
-    color: #D9D9D9;
+    color: rgb(62, 72, 74);
 }

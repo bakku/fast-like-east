@@ -5,11 +5,15 @@ import {
   getAbbrevDays,
   getDaysArrayForMatrix
 } from './util/date';
+
+import DayCell from './DayCell';
 import './App.css';
 
 function App() {
   const [currentMonth, setCurrentMonth] = useState(getCurrentMonth());
   const daysArray = getDaysArrayForMatrix();
+
+  console.log(daysArray);
 
   return (
     <div className="content-wrapper">
@@ -19,13 +23,9 @@ function App() {
         </div>
         <div className="calendar-body-wrapper">
           {getAbbrevDays().map(name => (
-            <div key={name} className="calendar-cell calendar-header-day">{name}</div>
+            <div key={name} className="calendar-header-day">{name}</div>
           ))}
-          {daysArray.map(day => (
-            <div className={`calendar-cell calendar-body-day ${day.currentMonth ? '' : 'calendar-body-day-previous-month'}`}>
-              {day.date.getDate()}
-            </div>
-          ))}
+          {daysArray.map(day => <DayCell day={day} />)}
         </div>
       </div>
     </div>
