@@ -5,6 +5,9 @@ import {
   getAbbrevDays,
   getDaysArrayForMatrix
 } from './util/date';
+import fastingData from './data';
+
+import DayCell from './DayCell';
 import './App.css';
 
 function App() {
@@ -19,13 +22,9 @@ function App() {
         </div>
         <div className="calendar-body-wrapper">
           {getAbbrevDays().map(name => (
-            <div key={name} className="calendar-cell calendar-header-day">{name}</div>
+            <div key={name} className="calendar-header-day">{name}</div>
           ))}
-          {daysArray.map(day => (
-            <div className={`calendar-cell calendar-body-day ${day.currentMonth ? '' : 'calendar-body-day-previous-month'}`}>
-              {day.date.getDate()}
-            </div>
-          ))}
+          {daysArray.map(day => <DayCell day={day} />)}
         </div>
       </div>
     </div>

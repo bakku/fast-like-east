@@ -29,6 +29,18 @@ export function getAbbrevDays() {
   return dayNames.map(I18n.t);
 }
 
+export function dateToString(date) {
+  return date.getFullYear() + "-" + zeroPad(date.getMonth() + 1) + "-" + zeroPad(date.getDate());
+}
+
+function zeroPad(str) {
+  if (str.toString().length == 1) {
+    return "0" + str;
+  }
+
+  return str;
+}
+
 export function getDaysArrayForMatrix() {
   const today = new Date();
   const days = getDaysInMonth(today);
