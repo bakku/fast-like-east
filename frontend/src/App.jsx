@@ -5,7 +5,6 @@ import {
   getAbbrevDays,
   getDaysArrayForMatrix
 } from './util/date';
-import fastingData from './data';
 
 import DayCell from './DayCell';
 import './App.css';
@@ -13,6 +12,8 @@ import './App.css';
 function App() {
   const [currentMonth, setCurrentMonth] = useState(getCurrentMonth());
   const daysArray = getDaysArrayForMatrix();
+
+  console.log(daysArray);
 
   return (
     <div className="content-wrapper">

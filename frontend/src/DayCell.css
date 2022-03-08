@@ -2,11 +2,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #A3A3A3;
+    color: rgb(62, 72, 74);
 }
 
 .calendar-body-day-previous-month {
-    color: #D9D9D9;
+    color: #A3A3A3;
 }
 
 .calendar-body-day-strict-fast {

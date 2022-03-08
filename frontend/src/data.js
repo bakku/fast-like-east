@@ -1,5 +1,5 @@
 const fastingData = {
-  "2021-05-01": {
+  "2022-03-01": {
     fast: "strict"
   }
 };

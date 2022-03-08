@@ -16,7 +16,7 @@ function DayCell(props) {
   if (data && data.fast === 'strict') {
     classes += ' calendar-body-day-strict-fast';
   }
-  
+
   return (
     <div className={classes}>
       {day.date.getDate()}
