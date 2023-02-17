@@ -6,11 +6,11 @@ import router from "@/router";
 import translations from "@/i18n";
 
 import "@/assets/styles.css";
-import { getCurrentLocale } from "@/lib/helpers";
 import { Locale } from "@/lib/types";
+import { currentLocale } from "@/lib/constants";
 
 const i18n = createI18n({
-  locale: getCurrentLocale() === Locale.DE ? "de" : "en",
+  locale: currentLocale === Locale.DE ? "de" : "en",
   fallbackLocale: "en",
   messages: translations,
 });

@@ -32,9 +32,11 @@ const router = createRouter({
         if (wrongParamGiven) return router.push({ name: "root" });
       },
       props: ({ params: { day, month, year } }) => ({
-        day: parseInt(day as string),
-        month: parseInt(month as string),
-        year: parseInt(year as string),
+        date: new Date(
+          parseInt(year as string),
+          parseInt(month as string),
+          parseInt(day as string)
+        ),
       }),
     },
     {
