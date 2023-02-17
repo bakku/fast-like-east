@@ -1,10 +1,20 @@
 <script setup lang="ts">
-import { format, getDay } from "date-fns";
+import { differenceInDays, format, getDay, isBefore, isEqual } from "date-fns";
 import { dateFnsLocalizer } from "@/lib/constants";
+import { fastingDays } from "@/days";
+import { pluralize } from "@/lib/helpers";
+import FastingInformation from "@/components/dayView/FastingInformation.vue";
+import { computed } from "vue";
 
-defineProps<{
+const props = defineProps<{
   date: Date;
 }>();
+
+const nextFastingDay = computed(() =>
+  fastingDays.find(
+    (d) => isEqual(props.date, d.date) || isBefore(props.date, d.date)
+  )
+);
 </script>
 
 <template>
@@ -13,5 +23,25 @@ defineProps<{
     <h1 class="text-2xl mt-3 mb-8 text-center">
       {{ dateFnsLocalizer.day(getDay(date)) }}
     </h1>
+  </div>
+
+  <hr />
+
+  <div class="flex justify-center items-center p-5">
+    <h2 v-if="nextFastingDay == null" class="text-xl">
+      {{ $t("dayCard.body.noFastingDayScheduled") }}
+    </h2>
+    <h2 v-else-if="isBefore(date, nextFastingDay.date)" class="text-xl">
+      {{ $t("dayCard.body.nextFastingDayIsIn") }}
+      {{ differenceInDays(nextFastingDay.date, date) }}
+      {{
+        pluralize(
+          differenceInDays(nextFastingDay.date, date),
+          $t("dayCard.body.daysSingular"),
+          $t("dayCard.body.daysPlural")
+        )
+      }}.
+    </h2>
+    <fasting-information v-else :fasting-day="nextFastingDay" />
   </div>
 </template>

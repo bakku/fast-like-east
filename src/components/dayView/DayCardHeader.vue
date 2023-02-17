@@ -7,20 +7,40 @@ import {
   getDay,
   getMonth,
   getYear,
+  isEqual,
   startOfWeek,
 } from "date-fns";
 import { currentDateFnsLocale, dateFnsLocalizer } from "@/lib/constants";
-import { daysEqual } from "@/lib/helpers";
+import { daysEqual, fastingColor } from "@/lib/helpers";
 import router from "@/router";
+import { fastingDays } from "@/days";
+import type { FastingDay } from "@/lib/types";
+import { computed } from "vue";
 
 const props = defineProps<{
   date: Date;
 }>();
 
-const weekDays = eachDayOfInterval({
-  start: startOfWeek(props.date),
-  end: endOfWeek(props.date),
-});
+const weekDays = computed(() =>
+  eachDayOfInterval({
+    start: startOfWeek(props.date),
+    end: endOfWeek(props.date),
+  })
+);
+
+const fastingDayIndicatorClass = (day: Date) => {
+  const fastingDay: FastingDay | undefined = fastingDays.find((d) =>
+    isEqual(day, d.date)
+  );
+
+  if (fastingDay != undefined) {
+    return `w-[60%] h-1 bg-${fastingColor(
+      fastingDay.type
+    )} rounded-full mt-1 mb-1`;
+  }
+
+  return "w-[60%] h-1 mt-1 mb-1";
+};
 
 const handleDayClick = (day: Date) => {
   router.push({
@@ -48,7 +68,7 @@ const handleDayClick = (day: Date) => {
       v-for="day in weekDays"
       :key="day.getDate()"
       :class="`flex flex-col justify-center items-center m-1 cursor-pointer ${
-        daysEqual(day, date) ? 'bg-orange-200' : ''
+        daysEqual(day, date) ? 'bg-gray-200' : ''
       }`"
       @click="handleDayClick(day)"
     >
@@ -60,7 +80,7 @@ const handleDayClick = (day: Date) => {
         }}
       </p>
       <p>{{ format(day, "dd") }}</p>
-      <span class="w-[60%] h-1 bg-green-500 rounded-full mt-1 mb-1"></span>
+      <span :class="fastingDayIndicatorClass(day)"></span>
     </div>
   </div>
 
