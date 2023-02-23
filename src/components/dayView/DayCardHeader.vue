@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+  addWeeks,
   eachDayOfInterval,
   endOfWeek,
   format,
@@ -52,13 +53,57 @@ const handleDayClick = (day: Date) => {
     },
   });
 };
+
+const goToLastWeek = () => {
+  const day = startOfWeek(addWeeks(props.date, -1));
+
+  router.push({
+    name: "day",
+    params: {
+      day: getDate(day),
+      month: getMonth(day),
+      year: getYear(day),
+    },
+  });
+};
+
+const goToNextWeek = () => {
+  const day = startOfWeek(addWeeks(props.date, 1));
+
+  router.push({
+    name: "day",
+    params: {
+      day: getDate(day),
+      month: getMonth(day),
+      year: getYear(day),
+    },
+  });
+};
 </script>
 
 <template>
-  <div class="pt-2 pb-2">
-    <p class="text-2xl text-center text-gray-600">
-      {{ format(date, "MMMM yyyy", { locale: currentDateFnsLocale }) }}
-    </p>
+  <div class="pt-2 pb-2 flex">
+    <div
+      class="flex-grow-[0.2] flex items-center justify-center cursor-pointer"
+      @click="goToLastWeek"
+    >
+      <div
+        class="border-t-2 border-l-2 border-gray-600 w-3 h-3 -rotate-45"
+      ></div>
+    </div>
+    <div class="flex-grow">
+      <p class="text-2xl text-center text-gray-600">
+        {{ format(date, "MMMM yyyy", { locale: currentDateFnsLocale }) }}
+      </p>
+    </div>
+    <div
+      class="flex-grow-[0.2] flex items-center justify-center cursor-pointer"
+      @click="goToNextWeek"
+    >
+      <div
+        class="border-t-2 border-r-2 border-gray-600 w-3 h-3 rotate-45"
+      ></div>
+    </div>
   </div>
 
   <hr class="mb-2 mt-1" />

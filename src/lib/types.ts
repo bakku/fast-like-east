@@ -13,4 +13,6 @@ export enum FastingType {
 export interface FastingDay {
   date: Date;
   type: FastingType;
+  enName: string | undefined;
+  deName: string | undefined;
 }
