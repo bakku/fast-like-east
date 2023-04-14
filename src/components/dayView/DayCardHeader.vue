@@ -22,6 +22,8 @@ const props = defineProps<{
   date: Date;
 }>();
 
+const today = new Date();
+
 const weekDays = computed(() =>
   eachDayOfInterval({
     start: startOfWeek(props.date),
@@ -113,8 +115,8 @@ const goToNextWeek = () => {
       v-for="day in weekDays"
       :key="day.getDate()"
       :class="`flex flex-col justify-center items-center m-1 cursor-pointer ${
-        daysEqual(day, date) ? 'bg-gray-200' : ''
-      }`"
+        daysEqual(day, date) ? 'bg-red-300' : ''
+      } ${daysEqual(today, day) ? 'border border-red-500' : ''}`"
       @click="handleDayClick(day)"
     >
       <p>
