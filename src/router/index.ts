@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { getMonth, getDate, getYear } from "date-fns";
+import { startOfDay } from "date-fns";
 import DayView from "@/views/DayView.vue";
 import AboutView from "@/views/AboutView.vue";
 import { isPositiveInteger } from "@/lib/helpers";
@@ -10,15 +10,15 @@ const router = createRouter({
     {
       path: "/",
       name: "root",
-      redirect: () => {
-        const today = new Date();
-
-        const day = getDate(today);
-        const month = getMonth(today);
-        const year = getYear(today);
-
-        return { name: "day", params: { day, month, year } };
-      },
+      redirect: () => ({ name: "today" }),
+    },
+    {
+      path: "/days/today",
+      name: "today",
+      component: DayView,
+      props: () => ({
+        date: startOfDay(new Date()),
+      }),
     },
     {
       path: "/days/:year/:month/:day",
