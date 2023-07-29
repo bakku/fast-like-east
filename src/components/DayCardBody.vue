@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { differenceInDays, format, getDay, isBefore, isEqual } from "date-fns";
-import { currentLocale, dateFnsLocalizer } from "@/lib/constants";
+import { differenceInDays, format, isBefore, isEqual } from "date-fns";
 import { fastingDays } from "@/days";
-import { pluralize } from "@/lib/helpers";
-import FastingInformation from "@/components/dayView/FastingInformation.vue";
+import { dateDayName, pluralize } from "@/lib/helpers";
+import FastingInformation from "@/components/FastingInformation.vue";
 import { computed } from "vue";
-import { Locale } from "@/lib/types";
+import { FastingType } from "@/lib/types";
 
 const props = defineProps<{
   date: Date;
@@ -13,23 +12,13 @@ const props = defineProps<{
 
 const nextFastingDay = computed(() =>
   fastingDays.find(
-    (d) => isEqual(props.date, d.date) || isBefore(props.date, d.date)
+    (d) =>
+      d.type != FastingType.NONE &&
+      (isEqual(props.date, d.date) || isBefore(props.date, d.date))
   )
 );
 
-const nameOfDay = computed(() => {
-  if (
-    nextFastingDay.value == null ||
-    !isEqual(nextFastingDay.value.date, props.date) ||
-    nextFastingDay.value.enName == null
-  ) {
-    return dateFnsLocalizer.day(getDay(props.date));
-  }
-
-  const { value: fastingDay } = nextFastingDay;
-
-  return currentLocale == Locale.DE ? fastingDay.deName : fastingDay.enName;
-});
+const nameOfDay = computed(() => dateDayName(props.date, fastingDays));
 </script>
 
 <template>
@@ -43,7 +32,7 @@ const nameOfDay = computed(() => {
   <hr />
 
   <div class="flex justify-center items-center p-5">
-    <h2 v-if="nextFastingDay == null" class="text-xl">
+    <h2 v-if="!nextFastingDay" class="text-xl">
       {{ $t("dayCard.body.noFastingDayScheduled") }}
     </h2>
     <h2 v-else-if="isBefore(date, nextFastingDay.date)" class="text-xl">

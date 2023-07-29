@@ -1,5 +1,5 @@
-import { FastingType } from "@/lib/types";
 import type { FastingDay } from "@/lib/types";
+import { FastingType } from "@/lib/types";
 
 export const fastingDays = [
   {
@@ -77,6 +77,12 @@ export const fastingDays = [
   {
     date: new Date(2023, 7, 14),
     type: FastingType.STRICT,
+  },
+  {
+    date: new Date(2023, 7, 15),
+    type: FastingType.NONE,
+    deName: "Mariä Himmelfahrt",
+    enName: "Assumption of Mary",
   },
   {
     date: new Date(2023, 7, 16),

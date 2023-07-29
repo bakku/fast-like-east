@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DayCard from "@/components/dayView/DayCard.vue";
+import DayCard from "@/components/DayCard.vue";
 
 defineProps<{
   date: Date;

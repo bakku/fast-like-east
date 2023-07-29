@@ -8,6 +8,7 @@ export enum FastingType {
   CHEESE = "cheese",
   FISH = "fish",
   STRICT = "strict",
+  NONE = "none",
 }
 
 export interface FastingDay {
