@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DayCardHeader from "@/components/dayView/DayCardHeader.vue";
-import DayCardBody from "@/components/dayView/DayCardBody.vue";
+import DayCardHeader from "@/components/DayCardHeader.vue";
+import DayCardBody from "@/components/DayCardBody.vue";
 
 defineProps<{
   date: Date;

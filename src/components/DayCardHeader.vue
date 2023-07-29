@@ -4,23 +4,23 @@ import {
   eachDayOfInterval,
   endOfWeek,
   format,
-  getDate,
   getDay,
-  getMonth,
-  getYear,
   isEqual,
   startOfWeek,
 } from "date-fns";
 import { currentDateFnsLocale, dateFnsLocalizer } from "@/lib/constants";
-import { daysEqual, fastingColor } from "@/lib/helpers";
-import router from "@/router";
+import { compartmentalizeDate, daysEqual, fastingColor } from "@/lib/helpers";
 import { fastingDays } from "@/days";
 import type { FastingDay } from "@/lib/types";
+import { FastingType } from "@/lib/types";
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 
 const props = defineProps<{
   date: Date;
 }>();
+
+const router = useRouter();
 
 const today = new Date();
 
@@ -32,27 +32,23 @@ const weekDays = computed(() =>
 );
 
 const fastingDayIndicatorClass = (day: Date) => {
-  const fastingDay: FastingDay | undefined = fastingDays.find((d) =>
-    isEqual(day, d.date)
+  const fastingDay: FastingDay | undefined = fastingDays.find(
+    (d) => isEqual(day, d.date) && d.type != FastingType.NONE
   );
 
+  const baseClasses = "w-[60%] h-1 mt-1 mb-1";
+
   if (fastingDay != undefined) {
-    return `w-[60%] h-1 bg-${fastingColor(
-      fastingDay.type
-    )} rounded-full mt-1 mb-1`;
+    return `${baseClasses} bg-${fastingColor(fastingDay.type)} rounded-full`;
   }
 
-  return "w-[60%] h-1 mt-1 mb-1";
+  return baseClasses;
 };
 
 const handleDayClick = (day: Date) => {
   router.push({
     name: "day",
-    params: {
-      day: getDate(day),
-      month: getMonth(day),
-      year: getYear(day),
-    },
+    params: compartmentalizeDate(day),
   });
 };
 
@@ -61,11 +57,7 @@ const goToLastWeek = () => {
 
   router.push({
     name: "day",
-    params: {
-      day: getDate(day),
-      month: getMonth(day),
-      year: getYear(day),
-    },
+    params: compartmentalizeDate(day),
   });
 };
 
@@ -74,11 +66,7 @@ const goToNextWeek = () => {
 
   router.push({
     name: "day",
-    params: {
-      day: getDate(day),
-      month: getMonth(day),
-      year: getYear(day),
-    },
+    params: compartmentalizeDate(day),
   });
 };
 </script>

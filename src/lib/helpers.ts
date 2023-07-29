@@ -1,5 +1,6 @@
-import { getMonth, getDate, getYear } from "date-fns";
-import { FastingType } from "@/lib/types";
+import { getDate, getDay, getMonth, getYear, isEqual } from "date-fns";
+import { type FastingDay, FastingType, Locale } from "@/lib/types";
+import { currentLocale, dateFnsLocalizer } from "@/lib/constants";
 
 export const isPositiveInteger = (str: string) => {
   const num = Number(str);
@@ -10,6 +11,12 @@ export const daysEqual = (d1: Date, d2: Date) =>
   getDate(d1) === getDate(d2) &&
   getMonth(d1) === getMonth(d2) &&
   getYear(d1) === getYear(d2);
+
+export const compartmentalizeDate = (d: Date) => ({
+  day: getDate(d),
+  month: getMonth(d),
+  year: getYear(d),
+});
 
 export const pluralize = (count: number, singular: string, plural: string) => {
   if (count != 1) return plural;
@@ -26,5 +33,19 @@ export const fastingColor = (type: FastingType) => {
       return "red-500";
     case FastingType.WINE:
       return "purple-600";
+    case FastingType.NONE:
+      return "";
   }
+};
+
+export const dateDayName = (date: Date, fastingDays: FastingDay[]) => {
+  const dateAsFastingDay = fastingDays.find((d) => isEqual(d.date, date));
+
+  if (dateAsFastingDay && dateAsFastingDay.enName && dateAsFastingDay.deName) {
+    return currentLocale == Locale.DE
+      ? dateAsFastingDay.deName
+      : dateAsFastingDay.enName;
+  }
+
+  return dateFnsLocalizer.day(getDay(date));
 };
