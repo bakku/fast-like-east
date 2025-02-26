@@ -1,10 +1,8 @@
 import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
-
 import App from "@/App.vue";
 import router from "@/router";
 import translations from "@/i18n";
-
 import "@/assets/styles.css";
 import { Locale } from "@/lib/types";
 import { currentLocale } from "@/lib/constants";

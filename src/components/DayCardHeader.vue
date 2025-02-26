@@ -4,11 +4,10 @@ import {
   eachDayOfInterval,
   endOfWeek,
   format,
-  getDay,
   isEqual,
   startOfWeek,
 } from "date-fns";
-import { currentDateFnsLocale, dateFnsLocalizer } from "@/lib/constants";
+import { currentDateFnsLocale } from "@/lib/constants";
 import { compartmentalizeDate, daysEqual, fastingColor } from "@/lib/helpers";
 import { fastingDays } from "@/days";
 import type { FastingDay } from "@/lib/types";
@@ -28,12 +27,12 @@ const weekDays = computed(() =>
   eachDayOfInterval({
     start: startOfWeek(props.date),
     end: endOfWeek(props.date),
-  })
+  }),
 );
 
 const fastingDayIndicatorClass = (day: Date) => {
   const fastingDay: FastingDay | undefined = fastingDays.find(
-    (d) => isEqual(day, d.date) && d.type != FastingType.NONE
+    (d) => isEqual(day, d.date) && d.type != FastingType.NONE,
   );
 
   const baseClasses = "w-[60%] h-1 mt-1 mb-1";
@@ -81,7 +80,7 @@ const goToNextWeek = () => {
         class="border-t-2 border-l-2 border-gray-600 w-3 h-3 -rotate-45"
       ></div>
     </div>
-    <div class="flex-grow">
+    <div class="grow">
       <p class="text-2xl text-center text-gray-600">
         {{ format(date, "MMMM yyyy", { locale: currentDateFnsLocale }) }}
       </p>
@@ -108,11 +107,7 @@ const goToNextWeek = () => {
       @click="handleDayClick(day)"
     >
       <p>
-        {{
-          dateFnsLocalizer.day(getDay(day), {
-            width: "narrow",
-          })
-        }}
+        {{ format(day, "EEEEE", { locale: currentDateFnsLocale }) }}
       </p>
       <p>{{ format(day, "dd") }}</p>
       <span :class="fastingDayIndicatorClass(day)"></span>

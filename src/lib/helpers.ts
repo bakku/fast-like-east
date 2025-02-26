@@ -1,6 +1,6 @@
-import { getDate, getDay, getMonth, getYear, isEqual } from "date-fns";
+import { format, getDate, getMonth, getYear, isEqual } from "date-fns";
 import { type FastingDay, FastingType, Locale } from "@/lib/types";
-import { currentLocale, dateFnsLocalizer } from "@/lib/constants";
+import { currentDateFnsLocale, currentLocale } from "@/lib/constants";
 
 export const isPositiveInteger = (str: string) => {
   const num = Number(str);
@@ -47,5 +47,5 @@ export const dateDayName = (date: Date, fastingDays: FastingDay[]) => {
       : dateAsFastingDay.enName;
   }
 
-  return dateFnsLocalizer.day(getDay(date));
+  return format(date, "EEEE", { locale: currentDateFnsLocale });
 };

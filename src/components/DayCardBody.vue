@@ -14,8 +14,8 @@ const nextFastingDay = computed(() =>
   fastingDays.find(
     (d) =>
       d.type != FastingType.NONE &&
-      (isEqual(props.date, d.date) || isBefore(props.date, d.date))
-  )
+      (isEqual(props.date, d.date) || isBefore(props.date, d.date)),
+  ),
 );
 
 const nameOfDay = computed(() => dateDayName(props.date, fastingDays));
@@ -42,7 +42,7 @@ const nameOfDay = computed(() => dateDayName(props.date, fastingDays));
         pluralize(
           differenceInDays(nextFastingDay.date, date),
           $t("dayCard.body.daysSingular"),
-          $t("dayCard.body.daysPlural")
+          $t("dayCard.body.daysPlural"),
         )
       }}.
     </h2>

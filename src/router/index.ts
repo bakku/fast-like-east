@@ -26,7 +26,7 @@ const router = createRouter({
       component: DayView,
       beforeEnter: ({ params: { day, month, year } }) => {
         const wrongParamGiven = [day, month, year].some(
-          (param) => typeof param !== "string" || !isPositiveInteger(param)
+          (param) => typeof param !== "string" || !isPositiveInteger(param),
         );
 
         if (wrongParamGiven) return router.push({ name: "root" });
@@ -35,7 +35,7 @@ const router = createRouter({
         date: new Date(
           parseInt(year as string),
           parseInt(month as string),
-          parseInt(day as string)
+          parseInt(day as string),
         ),
       }),
     },
