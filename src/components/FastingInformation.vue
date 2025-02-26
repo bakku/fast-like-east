@@ -7,13 +7,14 @@ const props = defineProps<{
   fastingDay: FastingDay;
 }>();
 
-const color = computed(() => fastingColor(props.fastingDay.type));
 const i18nPrefix = computed(() => `${props.fastingDay.type}`);
 </script>
 
 <template>
   <div class="flex">
-    <div :class="`flex flex-none ml-5 items-center border-${color} border-r-2`">
+    <div
+      :class="`flex flex-none ml-5 items-center ${fastingColor(props.fastingDay.type, 'border')} border-r-2`"
+    >
       <h2 class="text-3xl mr-5">
         {{ $t(`dayCard.body.${i18nPrefix}.icon`) }}
       </h2>

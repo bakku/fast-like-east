@@ -23,16 +23,43 @@ export const pluralize = (count: number, singular: string, plural: string) => {
   else return singular;
 };
 
-export const fastingColor = (type: FastingType) => {
-  switch (type) {
+export const fastingColor = (
+  fastingType: FastingType,
+  colorType: "background" | "border",
+) => {
+  switch (fastingType) {
     case FastingType.CHEESE:
-      return "yellow-300";
+      switch (colorType) {
+        case "background":
+          return "bg-yellow-300";
+        case "border":
+          return "border-yellow-300";
+      }
+      break;
     case FastingType.FISH:
-      return "blue-500";
+      switch (colorType) {
+        case "background":
+          return "bg-blue-500";
+        case "border":
+          return "border-blue-500";
+      }
+      break;
     case FastingType.STRICT:
-      return "red-500";
+      switch (colorType) {
+        case "background":
+          return "bg-red-500";
+        case "border":
+          return "border-red-500";
+      }
+      break;
     case FastingType.WINE:
-      return "purple-600";
+      switch (colorType) {
+        case "background":
+          return "bg-purple-600";
+        case "border":
+          return "border-purple-600";
+      }
+      break;
     case FastingType.NONE:
       return "";
   }

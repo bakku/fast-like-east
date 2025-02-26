@@ -38,7 +38,7 @@ const fastingDayIndicatorClass = (day: Date) => {
   const baseClasses = "w-[60%] h-1 mt-1 mb-1";
 
   if (fastingDay != undefined) {
-    return `${baseClasses} bg-${fastingColor(fastingDay.type)} rounded-full`;
+    return `${baseClasses} ${fastingColor(fastingDay.type, "background")} rounded-full`;
   }
 
   return baseClasses;
