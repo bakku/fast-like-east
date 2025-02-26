@@ -8,7 +8,7 @@ defineProps<{
 
 <template>
   <main
-    class="flex h-screen justify-center items-center bg-gradient-to-br from-red-400 to-red-500"
+    class="flex h-screen justify-center items-center bg-linear-to-br from-red-400 to-red-500"
   >
     <day-card :date="date" />
   </main>
